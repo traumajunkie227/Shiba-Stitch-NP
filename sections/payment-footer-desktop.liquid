@@ -1,0 +1,67 @@
+{% comment %} theme-check-disable UndefinedObject {% endcomment %}
+
+{%- style -%}
+/*───────────────────────────────────────────────
+  DESKTOP PAYMENT FOOTER  (hidden ≤ 767 px)
+───────────────────────────────────────────────*/
+
+/* Hide whole bar on phones & small tablets */
+@media (max-width:767px){
+  .payment-footer-desktop{display:none!important}
+}
+
+/* Bar layout & look */
+.payment-footer-desktop{
+  background:#000;
+  color:#fff;
+  padding:6px 10px;                /* thinner bar */
+  display:flex;
+  align-items:center;
+  width:100%;
+}
+
+.payment-footer-desktop a{color:inherit;text-decoration:underline}
+
+/* Payment-icon row */
+.payment-footer-desktop .list-payment{
+  margin:0 0 0 auto;               /* push icons right */
+  padding:0;
+  list-style:none;
+  display:flex;
+  gap:6px;
+}
+
+.payment-footer-desktop .payment-icon{
+  width:38px;
+  height:26px;
+  fill:currentColor;
+}
+{%- endstyle -%}
+
+<footer class="payment-footer-desktop">
+  <small>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }} ·
+    <a href="/policies/privacy-policy">Privacy&nbsp;policy</a></small>
+
+  <ul class="list-payment" role="list">
+    {% for type in shop.enabled_payment_types %}
+      <li class="payment-icon">
+        {{ type | payment_type_svg_tag: class:'icon icon--full-color' }}
+      </li>
+    {% endfor %}
+  </ul>
+</footer>
+
+{% schema %}
+{
+  "name": "Desktop Payment Footer",
+  "tag": "section",
+  "class": "payment-footer-desktop",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Desktop Payment Footer",
+      "category": "Footer"
+    }
+  ]
+}
+{% endschema %}

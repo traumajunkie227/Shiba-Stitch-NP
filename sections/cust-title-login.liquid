@@ -1,0 +1,103 @@
+{% comment %}
+  Cust Title Login
+  + Only shows on the “Log in” page template
+{% endcomment %}
+
+{% if template == 'customers/login' %}
+  {%- style -%}
+  .cust-title-login {
+    display: inline-block;
+    font-size: {{ section.settings.text_size }}px !important;
+    font-weight: 400 !important;
+    line-height: 1.2 !important;
+    color: {{ section.settings.text_color }} !important;
+    background-color: {{ section.settings.background_color }} !important;
+    padding: {{ section.settings.inner_padding }}px !important;
+    border-radius: {% if section.settings.enable_rounded %}12px{% else %}0{% endif %} !important;
+    text-align: center;
+    margin: {{ section.settings.box_margin }}px auto !important;
+  }
+  .cust-title-login-wrapper {
+    box-sizing: border-box;
+    width: 100%;
+    padding: {{ section.settings.wrapper_padding }}px !important;
+    background-color:
+      {% if section.settings.transparent_background %}
+        transparent
+      {% else %}
+        {{ section.settings.section_background_color }}
+      {% endif %};
+  }
+  @media (min-width: 750px) {
+    .cust-title-login-wrapper {
+      padding-top: {{ section.settings.padding_top }}px !important;
+      padding-bottom: {{ section.settings.padding_bottom }}px !important;
+    }
+  }
+  @media (max-width: 749px) {
+    .cust-title-login-wrapper {
+      padding-top: {{ section.settings.padding_top_mobile }}px !important;
+      padding-bottom: {{ section.settings.padding_bottom_mobile }}px !important;
+    }
+    .cust-title-login {
+      font-size: {{ section.settings.text_size_mobile }}px !important;
+    }
+  }
+  .cust-title-login-wrapper.align-left   { text-align: left; }
+  .cust-title-login-wrapper.align-center { text-align: center; }
+  .cust-title-login-wrapper.align-right  { text-align: right; }
+  {%- endstyle -%}
+
+  <div class="cust-title-login-wrapper align-{{ section.settings.heading_alignment }}">
+    {% assign tag = section.settings.heading_size | default: 'h2' %}
+    <{{ tag }} class="cust-title-login">
+      {{ section.settings.heading_text }}
+    </{{ tag }}>
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Cust Title Login",
+  "settings": [
+    { "type": "text",    "id": "heading_text",             "label": "Heading text",                       "default": "Welcome back" },
+    { "type": "select",  "id": "heading_size",             "label": "Heading size",                       "default": "h2",
+      "options":[
+        { "value":"h1","label":"H1 (largest)" },
+        { "value":"h2","label":"H2 (large)" },
+        { "value":"h3","label":"H3 (medium)" },
+        { "value":"h4","label":"H4 (small)" },
+        { "value":"h5","label":"H5 (smaller)" },
+        { "value":"h6","label":"H6 (smallest)" }
+      ]
+    },
+    { "type": "select",  "id": "heading_alignment",        "label": "Text alignment",                    "default":"center",
+      "options":[
+        { "value":"left","label":"Left" },
+        { "value":"center","label":"Center" },
+        { "value":"right","label":"Right" }
+      ]
+    },
+    { "type": "checkbox","id": "enable_rounded",           "label": "Enable rounded background style",  "default": true },
+    { "type": "color",   "id": "text_color",               "label": "Text color",                        "default":"#ffffff" },
+    { "type": "color",   "id": "background_color",         "label": "Text background color",            "default":"#f67811" },
+    { "type": "color",   "id": "section_background_color", "label": "Section background color",         "default":"#ffffff" },
+    { "type": "range",   "id": "wrapper_padding",          "label": "Block padding (px)",               "min":0, "max":100, "step":4, "unit":"px", "default":32 },
+    { "type": "checkbox","id": "transparent_background",   "label": "Make section background transparent","default": false },
+
+    { "type": "range",   "id": "inner_padding",            "label": "Box padding (px)",                 "min":0, "max":100, "step":4, "unit":"px", "default":8 },
+    { "type": "range",   "id": "text_size",                "label": "Text size (desktop px)",           "min":12,"max":112,"step":1,"unit":"px","default":32 },
+    { "type": "range",   "id": "text_size_mobile",         "label": "Text size (mobile px)",            "min":12,"max":72,"step":1,"unit":"px","default":28 },
+
+    { "type": "range",   "id": "padding_top",              "label": "Top padding (desktop)",            "min":0, "max":100,"step":4,"unit":"px","default":36 },
+    { "type": "range",   "id": "padding_bottom",           "label": "Bottom padding (desktop)",         "min":0, "max":100,"step":4,"unit":"px","default":36 },
+    { "type": "range",   "id": "padding_top_mobile",       "label": "Top padding (mobile)",             "min":0, "max":100,"step":4,"unit":"px","default":36 },
+    { "type": "range",   "id": "padding_bottom_mobile",    "label": "Bottom padding (mobile)",          "min":0, "max":100,"step":4,"unit":"px","default":36 },
+
+    { "type": "range",   "id": "box_margin",               "label": "Box margin (px)",                  "min":0, "max":100,"step":4,"unit":"px","default":0 }
+  ],
+  "presets": [
+    { "name": "Cust Title Login", "category": "Custom" }
+  ]
+}
+{% endschema %}

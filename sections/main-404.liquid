@@ -1,0 +1,70 @@
+<style type="text/css">
+  /* Section background and paddings */
+  .template-404.page-width.page-margin.center {
+    background-color: #EEEBE3 !important;
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  /* Hide the small “404” above the main title */
+  .template-404.page-width.page-margin.center > p:first-child {
+    display: none !important;
+  }
+
+  /* Spacing after the title */
+  .template-404 .title + * {
+    margin-top: 1rem;
+  }
+  @media screen and (min-width: 750px) {
+    .template-404 .title + * {
+      margin-top: 2rem;
+    }
+  }
+
+  /* Button color */
+  .template-404 .button {
+    background-color: {{ section.settings.button_color }} !important;
+  }
+</style>
+
+<div class="template-404 page-width page-margin center">
+  <p>{{ 'templates.404.subtext' | t }}</p>
+  <h1 class="title">{{ 'templates.404.title' | t }}</h1>
+  <a href="{{ routes.all_products_collection_url }}" class="button">
+    {{ 'general.continue_shopping' | t }}
+  </a>
+</div>
+
+{% schema %}
+{
+  "name": "404 Error Page",
+  "settings": [
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    }
+  ]
+}
+{% endschema %}

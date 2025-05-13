@@ -1,0 +1,216 @@
+{% comment %} theme-check-disable UndefinedObject {% endcomment %}
+
+{%- style -%}
+/*–– Hide on desktop ––*/
+@media (min-width: {{ section.settings.mobile_breakpoint }}px) {
+  .footer-mobile { display: none !important; }
+}
+
+/*–– Container ––*/
+.footer-mobile {
+  background-color: #FEBD59;
+  border-radius: 20px;
+  padding: {{ section.settings.box_padding_top }}px {{ section.settings.box_padding }}px {{ section.settings.box_padding_bottom }}px;
+  max-width: {{ section.settings.box_max_width }}px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/*–– 2×2 grid: 1 full, then 2 side-by-side, then 1 full ––*/
+.footer-mobile .footer-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: {{ section.settings.mobile_column_gap }}px {{ section.settings.column_gap }}px;
+}
+.footer-mobile .footer-column:nth-child(1) { grid-column: 1 / -1; }
+.footer-mobile .footer-column:nth-child(2) { grid-column: 1; }
+.footer-mobile .footer-column:nth-child(3) { grid-column: 2; }
+.footer-mobile .footer-column:nth-child(4) { grid-column: 1 / -1; }
+
+/*–– Headings & body text ––*/
+.footer-mobile h3 {
+  margin-bottom: {{ section.settings.header_content_gap }}px;
+  font-family: {{ section.settings.footer_heading_font.family | json }}, {{ section.settings.footer_heading_font.fallback_families }};
+  font-size: {{ section.settings.heading_font_size }}px;
+  color: {{ section.settings.heading_color }};
+}
+.footer-mobile p,
+.footer-mobile li,
+.footer-mobile a {
+  font-family: {{ section.settings.footer_body_font.family | json }}, {{ section.settings.footer_body_font.fallback_families }};
+  font-size: {{ section.settings.body_font_size }}px;
+  color: {{ section.settings.body_text_color }};
+}
+
+/*–– Links ––*/
+.footer-mobile ul { list-style: none; padding: 0; margin: 0; }
+.footer-mobile li { margin-bottom: 4px; }
+.footer-mobile a { text-decoration: none; display: block; }
+.footer-mobile a:hover { text-decoration: underline; }
+
+/*–– Newsletter ––*/
+.footer-mobile .newsletter input[type="email"] {
+  width: 100%;
+  padding: .5em;
+  border: 1px solid #000;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  box-sizing: border-box;
+}
+.footer-mobile .newsletter button {
+  padding: .5em 1em;
+  background: #4f46e5;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+}
+
+/*–– Social block (Block 4) ––*/
+.footer-mobile .social {
+  text-align: center;
+}
+.footer-mobile .social img.logo {
+  width: {{ section.settings.logo_size }}px;
+  height: auto;
+  margin-bottom: 8px;
+}
+.footer-mobile .social .social-links {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+.footer-mobile .social .social-links img {
+  width: {{ section.settings.social_icon_size }}px;
+  height: {{ section.settings.social_icon_size }}px;
+}
+
+/*–– Bottom bar ––*/
+.footer-mobile .custom-footer-bottom {
+  background: #000;
+  color: #fff;
+  text-align: center;
+  padding: 8px 0;
+  font-size: .85rem;
+}
+.footer-mobile .custom-footer-bottom a {
+  color: #fff;
+  text-decoration: underline;
+}
+{%- endstyle -%}
+
+<footer class="footer-mobile">
+  <div class="footer-columns">
+    {% for block in section.blocks %}
+      <div class="footer-column {{ block.type }}">
+        {% case block.type %}
+          {% when 'newsletter' %}
+            {% if block.settings.heading %}<h3>{{ block.settings.heading }}</h3>{% endif %}
+            <p>{{ block.settings.text }}</p>
+            <form method="post" action="/contact#contact_form">
+              <input type="email" name="contact[email]" placeholder="Email" required>
+              <button type="submit">{{ block.settings.button_text }}</button>
+            </form>
+
+          {% when 'links' %}
+            {% if block.settings.heading %}<h3>{{ block.settings.heading }}</h3>{% endif %}
+            <ul>
+              {% for i in (1..4) %}
+                {% assign txt = block.settings["link_#{i}_text"] %}
+                {% assign url = block.settings["link_#{i}_url"] %}
+                {% if txt %}<li><a href="{{ url }}">{{ txt }}</a></li>{% endif %}
+              {% endfor %}
+            </ul>
+
+          {% when 'links_column' %}
+            {% if block.settings.heading %}<h3>{{ block.settings.heading }}</h3>{% endif %}
+            <ul>
+              {% for i in (1..6) %}
+                {% assign pg = "link#{ i }_page" %}
+                {% assign lb = "link#{ i }_label" %}
+                {% assign page = block.settings[pg] %}
+                {% if page %}
+                  <li><a href="{{ page.url }}">{{ block.settings[lb] | default: page.title }}</a></li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+
+          {% when 'social' %}
+            {% if block.settings.heading %}<h3>{{ block.settings.heading }}</h3>{% endif %}
+            <img
+              src="{{ 'Shiba_Stitch_-_square_logo_round_corner_crop_NO_border.png' | asset_url }}"
+              alt="{{ shop.name }} logo"
+              class="logo"
+            >
+            <div class="social-links">
+              <a href="https://www.instagram.com/shibastitchnp/">
+                <img src="https://cdn.shopify.com/s/files/1/0915/3285/3568/files/instagram_icon_rounded_refined.svg?v=1745642637" alt="Instagram">
+              </a>
+              <a href="https://www.facebook.com/shibastitchnp/">
+                <img src="https://cdn.shopify.com/s/files/1/0915/3285/3568/files/facebook_icon_rounded_refined.svg?v=1745642637" alt="Facebook">
+              </a>
+              <a href="https://www.tiktok.com/@sophsett?_t=ZP-8vqXUtdoSyc&_r=1">
+                <img src="https://cdn.shopify.com/s/files/1/0915/3285/3568/files/tiktok_icon_rounded_refined.svg?v=1745642637" alt="TikTok">
+              </a>
+            </div>
+        {% endcase %}
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="custom-footer-bottom">
+    <small>
+      &copy; {{ 'now' | date: '%Y' }} {{ shop.name }} &middot;
+      <a href="/policies/privacy-policy">Privacy policy</a>
+    </small>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer Mobile",
+  "settings": [
+    { "type":"font_picker","id":"footer_heading_font","label":"Heading font","default":"assistant_n4" },
+    { "type":"font_picker","id":"footer_body_font","label":"Body font","default":"assistant_n4" },
+    { "type":"range","id":"box_padding","label":"Horizontal padding","min":0,"max":50,"step":1,"unit":"px","default":16 },
+    { "type":"range","id":"box_padding_top","label":"Top padding","min":0,"max":50,"step":1,"unit":"px","default":16 },
+    { "type":"range","id":"box_padding_bottom","label":"Bottom padding","min":0,"max":50,"step":1,"unit":"px","default":16 },
+    { "type":"range","id":"column_gap","label":"Horizontal gap","min":0,"max":40,"step":2,"unit":"px","default":12 },
+    { "type":"range","id":"mobile_column_gap","label":"Vertical gap","min":0,"max":40,"step":2,"unit":"px","default":12 },
+    { "type":"range","id":"mobile_breakpoint","label":"Mobile breakpoint","min":320,"max":1024,"step":16,"unit":"px","default":768 },
+    { "type":"range","id":"heading_font_size","label":"Heading size","min":14,"max":28,"step":1,"unit":"px","default":20 },
+    { "type":"range","id":"body_font_size","label":"Body size","min":12,"max":20,"step":1,"unit":"px","default":16 },
+    { "type":"range","id":"logo_size","label":"Logo size","min":50,"max":200,"step":5,"unit":"px","default":120 },
+    { "type":"range","id":"social_icon_size","label":"Social icon size","min":16,"max":100,"step":1,"unit":"px","default":28 }
+  ],
+  "blocks": [
+    { "type":"newsletter","name":"Newsletter","settings":[
+        { "type":"text","id":"heading","label":"Heading" },
+        { "type":"text","id":"text","label":"Description" },
+        { "type":"text","id":"button_text","label":"Button text","default":"Follow" }
+      ]
+    },
+    { "type":"links","name":"Shop","settings":[
+        { "type":"text","id":"heading","label":"Heading" },
+        { "type":"text","id":"link_1_text","label":"Link 1 text" },
+        { "type":"url","id":"link_1_url","label":"Link 1 URL" },
+        { "type":"text","id":"link_2_text","label":"Link 2 text" },
+        { "type":"url","id":"link_2_url","label":"Link 2 URL" }
+      ]
+    },
+    { "type":"links_column","name":"Help","settings":[
+        { "type":"text","id":"heading","label":"Heading" },
+        { "type":"page","id":"link1_page","label":"Page 1" },
+        { "type":"text","id":"link1_label","label":"Label 1" },
+        { "type":"page","id":"link2_page","label":"Page 2" },
+        { "type":"text","id":"link2_label","label":"Label 2" }
+      ]
+    },
+    { "type":"social","name":"Social Icons","settings":[
+        { "type":"text","id":"heading","label":"Heading" }
+      ]
+    }
+  ],
+  "presets":[ { "name":"Footer Mobile","category":"Footer" } ]
+}
+{% endschema %}

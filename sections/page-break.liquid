@@ -1,0 +1,101 @@
+{% comment %}
+  Custom Page Break Section
+{% endcomment %}
+
+<div
+  class="page-break-wrapper"
+  style="
+    margin-top: {{ section.settings.spacing_above }}px;
+    margin-bottom: {{ section.settings.spacing_below }}px;
+    height: {{ section.settings.break_height }}px;
+    {% unless section.settings.transparent_background %}
+      background-color: {{ section.settings.background_color }};
+    {% endunless %}
+    {% if section.settings.add_top_border %}
+      border-top: {{ section.settings.break_thickness }}px solid {{ section.settings.border_color }};
+    {% endif %}
+    {% if section.settings.add_bottom_border %}
+      border-bottom: {{ section.settings.break_thickness }}px solid {{ section.settings.border_color }};
+    {% endif %}
+  "
+>
+</div>
+
+{% schema %}
+{
+  "name": "Page Break",
+  "settings": [
+    {
+      "type": "range",
+      "id": "break_height",
+      "label": "Break height (px)",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "spacing_above",
+      "label": "Spacing above (px)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "spacing_below",
+      "label": "Spacing below (px)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "checkbox",
+      "id": "transparent_background",
+      "label": "Make background transparent",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "add_top_border",
+      "label": "Add top border",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "add_bottom_border",
+      "label": "Add bottom border",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "break_thickness",
+      "label": "Border thickness (px)",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#000000"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Page Break"
+    }
+  ]
+}
+{% endschema %}

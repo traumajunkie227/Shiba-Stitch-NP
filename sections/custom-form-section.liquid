@@ -1,0 +1,449 @@
+<div class="tab-container">
+  {% if section.settings.show_heading %}
+    <h1 class="custom-form-heading">Forms for Custom Family Portraits</h1>
+  {% endif %}
+
+  <div class="form-button-row">
+    <div class="form-button-block" style="
+      background-color: {{ section.settings.form1_background_color }};
+      padding: {{ section.settings.form1_padding }}px;
+      border-radius: {{ section.settings.form1_radius }}px;
+    ">
+      <button
+        onclick="window.open('{{ section.settings.form1_url }}', '_blank')"
+        style="
+          background-color: {{ section.settings.button1_color }};
+          color: {{ section.settings.button1_text_color }};
+          font-size: {{ section.settings.button_font_size }}px;
+          font-weight: {{ section.settings.button_font_weight }};
+          font-family: var(--font-heading);
+          padding: {{ section.settings.button1_padding }}px;
+          border-radius: {{ section.settings.button1_radius }}px;
+          width: 100%;
+        "
+        onmouseover="this.style.backgroundColor='{{ section.settings.button1_hover_color }}'"
+        onmouseout="this.style.backgroundColor='{{ section.settings.button1_color }}'"
+      >
+        {{ section.settings.tab1_label }}
+      </button>
+
+      {% if section.settings.show_form1_preview %}
+        <div class="form-preview">
+          {% if section.settings.form1_autoheight %}
+            <iframe 
+              src="{{ section.settings.form1_url | replace: 'viewform', 'viewform?embedded=true' }}"
+              width="100%"
+              frameborder="0"
+              style="border: none; border-radius: 10px; height: auto; min-height: 800px;">
+              Loading…
+            </iframe>
+          {% else %}
+            <iframe 
+              src="{{ section.settings.form1_url | replace: 'viewform', 'viewform?embedded=true' }}"
+              width="100%"
+              frameborder="0"
+              class="form1-frame"
+              style="border: none; border-radius: 10px;">
+              Loading…
+            </iframe>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="form-button-block" style="
+      background-color: {{ section.settings.form2_background_color }};
+      padding: {{ section.settings.form2_padding }}px;
+      border-radius: {{ section.settings.form2_radius }}px;
+    ">
+      <button
+        onclick="window.open('{{ section.settings.form2_url }}', '_blank')"
+        style="
+          background-color: {{ section.settings.button2_color }};
+          color: {{ section.settings.button2_text_color }};
+          font-size: {{ section.settings.button_font_size }}px;
+          font-weight: {{ section.settings.button_font_weight }};
+          font-family: var(--font-heading);
+          padding: {{ section.settings.button2_padding }}px;
+          border-radius: {{ section.settings.button2_radius }}px;
+          width: 100%;
+        "
+        onmouseover="this.style.backgroundColor='{{ section.settings.button2_hover_color }}'"
+        onmouseout="this.style.backgroundColor='{{ section.settings.button2_color }}'"
+      >
+        {{ section.settings.tab2_label }}
+      </button>
+
+      {% if section.settings.show_form2_preview %}
+        <div class="form-preview">
+          {% if section.settings.form2_autoheight %}
+            <iframe 
+              src="{{ section.settings.form2_url | replace: 'viewform', 'viewform?embedded=true' }}"
+              width="100%"
+              frameborder="0"
+              style="border: none; border-radius: 10px; height: auto; min-height: 800px;">
+              Loading…
+            </iframe>
+          {% else %}
+            <iframe 
+              src="{{ section.settings.form2_url | replace: 'viewform', 'viewform?embedded=true' }}"
+              width="100%"
+              frameborder="0"
+              class="form2-frame"
+              style="border: none; border-radius: 10px;">
+              Loading…
+            </iframe>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<style>
+  .tab-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+
+  .custom-form-heading {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 40px;
+  }
+
+  .form-button-row {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .form-button-block {
+    flex: 1 1 400px;
+    max-width: 480px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+  }
+
+  .form-preview {
+    margin-top: 20px;
+  }
+
+  .form1-frame {
+    height: {{ section.settings.form1_height }}px;
+  }
+
+  .form2-frame {
+    height: {{ section.settings.form2_height }}px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .form-button-row {
+      flex-direction: column;
+    }
+
+    .form1-frame {
+      height: {{ section.settings.form1_mobile_height }}px;
+    }
+
+    .form2-frame {
+      height: {{ section.settings.form2_mobile_height }}px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Custom Family Forms",
+  "tag": "section",
+  "class": "section custom-family-forms",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_heading",
+      "label": "Show section heading",
+      "default": false
+    },
+
+    {
+      "type": "text",
+      "id": "tab1_label",
+      "label": "Button 1 Text",
+      "default": "🖌️ Initial Form"
+    },
+    {
+      "type": "text",
+      "id": "form1_url",
+      "label": "Button 1 Link URL",
+      "default": "https://docs.google.com/forms/d/e/FORM_ID/viewform"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_form1_preview",
+      "label": "Show Form 1 Preview",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "form1_autoheight",
+      "label": "Auto height for Form 1",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "form1_height",
+      "label": "Form 1 Desktop Preview Height",
+      "default": "1000",
+      "options": [
+        { "value": "600", "label": "600px" },
+        { "value": "800", "label": "800px" },
+        { "value": "1000", "label": "1000px" },
+        { "value": "1200", "label": "1200px" },
+        { "value": "1500", "label": "1500px" },
+        { "value": "2000", "label": "2000px" },
+        { "value": "2500", "label": "2500px" },
+        { "value": "3000", "label": "3000px" },
+        { "value": "3500", "label": "3500px" },
+        { "value": "4000", "label": "4000px" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "form1_mobile_height",
+      "label": "Form 1 Mobile Preview Height",
+      "default": "1000",
+      "options": [
+        { "value": "600", "label": "600px" },
+        { "value": "800", "label": "800px" },
+        { "value": "1000", "label": "1000px" },
+        { "value": "1200", "label": "1200px" },
+        { "value": "1500", "label": "1500px" },
+        { "value": "2000", "label": "2000px" },
+        { "value": "2500", "label": "2500px" },
+        { "value": "3000", "label": "3000px" },
+        { "value": "3500", "label": "3500px" },
+        { "value": "4000", "label": "4000px" }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "button1_color",
+      "label": "Button 1 Background Color",
+      "default": "#f67811"
+    },
+    {
+      "type": "color",
+      "id": "button1_hover_color",
+      "label": "Button 1 Hover Color",
+      "default": "#d8660e"
+    },
+    {
+      "type": "color",
+      "id": "button1_text_color",
+      "label": "Button 1 Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "button1_radius",
+      "label": "Button 1 Corner Radius (px)",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "button1_padding",
+      "label": "Button 1 Padding (px)",
+      "min": 4,
+      "max": 40,
+      "step": 2,
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "form1_background_color",
+      "label": "Form 1 Block Background Color",
+      "default": "#EEEBE3"
+    },
+    {
+      "type": "range",
+      "id": "form1_padding",
+      "label": "Form 1 Block Padding (px)",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "form1_radius",
+      "label": "Form 1 Block Corner Radius (px)",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "default": 20
+    },
+
+    {
+      "type": "text",
+      "id": "tab2_label",
+      "label": "Button 2 Text",
+      "default": "📩 Feedback Form"
+    },
+    {
+      "type": "text",
+      "id": "form2_url",
+      "label": "Button 2 Link URL",
+      "default": "https://docs.google.com/forms/d/e/FORM_ID/viewform"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_form2_preview",
+      "label": "Show Form 2 Preview",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "form2_autoheight",
+      "label": "Auto height for Form 2",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "form2_height",
+      "label": "Form 2 Desktop Preview Height",
+      "default": "1000",
+      "options": [
+        { "value": "600", "label": "600px" },
+        { "value": "800", "label": "800px" },
+        { "value": "1000", "label": "1000px" },
+        { "value": "1200", "label": "1200px" },
+        { "value": "1500", "label": "1500px" },
+        { "value": "2000", "label": "2000px" },
+        { "value": "2500", "label": "2500px" },
+        { "value": "3000", "label": "3000px" },
+        { "value": "3500", "label": "3500px" },
+        { "value": "4000", "label": "4000px" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "form2_mobile_height",
+      "label": "Form 2 Mobile Preview Height",
+      "default": "1000",
+      "options": [
+        { "value": "600", "label": "600px" },
+        { "value": "800", "label": "800px" },
+        { "value": "1000", "label": "1000px" },
+        { "value": "1200", "label": "1200px" },
+        { "value": "1500", "label": "1500px" },
+        { "value": "2000", "label": "2000px" },
+        { "value": "2500", "label": "2500px" },
+        { "value": "3000", "label": "3000px" },
+        { "value": "3500", "label": "3500px" },
+        { "value": "4000", "label": "4000px" }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "button2_color",  
+      "label": "Button 2 Background Color",  
+      "default": "#f67811"  
+    },  
+    {  
+      "type": "color",  
+      "id": "button2_hover_color",  
+      "label": "Button 2 Hover Color",  
+      "default": "#d8660e"  
+    },  
+    {  
+      "type": "color",  
+      "id": "button2_text_color",  
+      "label": "Button 2 Text Color",  
+      "default": "#ffffff"  
+    },  
+    {  
+      "type": "range",  
+      "id": "button2_radius",  
+      "label": "Button 2 Corner Radius (px)",  
+      "min": 0,  
+      "max": 50,  
+      "step": 1,  
+      "default": 10  
+    },  
+    {  
+      "type": "range",  
+      "id": "button2_padding",  
+      "label": "Button 2 Padding (px)",  
+      "min": 4,  
+      "max": 40,  
+      "step": 2,  
+      "default": 14  
+    },  
+    {  
+      "type": "color",  
+      "id": "form2_background_color",  
+      "label": "Form 2 Block Background Color",  
+      "default": "#F5E6DC"  
+    },  
+    {  
+      "type": "range",  
+      "id": "form2_padding",  
+      "label": "Form 2 Block Padding (px)",  
+      "min": 10,  
+      "max": 100,  
+      "step": 5,  
+      "default": 30  
+    },  
+    {  
+      "type": "range",  
+      "id": "form2_radius",  
+      "label": "Form 2 Block Corner Radius (px)",  
+      "min": 0,  
+      "max": 50,  
+      "step": 1,  
+      "default": 20  
+    },  
+    {  
+      "type": "select",  
+      "id": "button_font",  
+      "label": "Button Font",  
+      "default": "sans-serif",  
+      "options": [  
+        { "value": "Amaranth, sans-serif", "label": "Amaranth" },  
+        { "value": "'Vintage Signature', cursive", "label": "Vintage Signature" },  
+        { "value": "sans-serif", "label": "Sans Serif" },  
+        { "value": "serif", "label": "Serif" },  
+        { "value": "monospace", "label": "Monospace" }  
+      ]  
+    },  
+    {  
+      "type": "range",  
+      "id": "button_font_size",  
+      "label": "Button Font Size (px)",  
+      "min": 12,  
+      "max": 32,  
+      "step": 1,  
+      "default": 16  
+    },  
+    {  
+      "type": "range",  
+      "id": "button_font_weight",  
+      "label": "Button Font Weight",  
+      "min": 300,  
+      "max": 900,  
+      "step": 100,  
+      "default": 600  
+    }  
+  ],  
+  "presets": [  
+    {  
+      "name": "Custom Family Forms"  
+    }  
+  ]  
+}  
+{% endschema %}

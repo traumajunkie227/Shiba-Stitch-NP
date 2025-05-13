@@ -1,0 +1,20 @@
+{% if customer %}
+  {% if customer.tags contains 'portrait-access' or customer.email == 'smsettle@gmail.com' or customer.email == 'soph.settlestudios@gmail.com' or customer.email == 'soph@shibastitchnp.com' %}
+    {% section 'main-page' %}
+    {% section 'featured-collection' %}
+  {% else %}
+    <div style="padding: 2rem; text-align: center;">
+      <h2>Access Denied</h2>
+      <p>This page is for customers who have purchased a custom family portrait.</p>
+      <p>Please log in using the email you used at checkout.</p>
+      <a href="/account/login" style="margin-top: 1rem; display: inline-block;">Login</a>
+    </div>
+  {% endif %}
+{% else %}
+  <div style="padding: 2rem; text-align: center;">
+    <h2>Access Denied</h2>
+    <p>This page is for customers who have purchased a custom family portrait.</p>
+    <p>Please log in using the email you used at checkout.</p>
+    <a href="/account/login" style="margin-top: 1rem; display: inline-block;">Login</a>
+  </div>
+{% endif %}

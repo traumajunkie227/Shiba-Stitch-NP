@@ -1,0 +1,210 @@
+{% comment %}
+  Heading Block with custom font, color, alignment, transparency, and mobile/desktop padding control
+{% endcomment %}
+
+{%- style -%}
+  .heading-block-wrapper {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    padding-left: {{ section.settings.horizontal_padding }}px;
+    padding-right: {{ section.settings.horizontal_padding }}px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .heading-block-wrapper {
+      padding-top: {{ section.settings.padding_top_mobile }}px;
+      padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+      padding-left: {{ section.settings.horizontal_padding_mobile }}px;
+      padding-right: {{ section.settings.horizontal_padding_mobile }}px;
+    }
+  }
+
+  .heading-block {
+    display: inline-block;
+    font-weight: bold;
+    padding: 0.5em 1em;
+    margin: 0 auto;
+  }
+
+  .heading-block.rounded {
+    border-radius: 12px;
+  }
+
+  .align-left {
+    text-align: left;
+  }
+
+  .align-center {
+    text-align: center;
+  }
+
+  .align-right {
+    text-align: right;
+  }
+
+  .font-sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .font-serif { font-family: Georgia, "Times New Roman", serif; }
+  .font-mono { font-family: Menlo, Monaco, Consolas, "Courier New", monospace; }
+  .font-heading { font-family: var(--font-heading-family, sans-serif); }
+{%- endstyle -%}
+
+<div
+  class="heading-block-wrapper align-{{ section.settings.heading_alignment }}"
+  style="background-color: {% if section.settings.transparent_background %}transparent{% else %}{{ section.settings.section_background_color }}{% endif %};"
+>
+  {% assign heading_tag = section.settings.heading_size | default: 'h2' %}
+  <{{ heading_tag }}
+    class="heading-block font-{{ section.settings.font_choice }} {% if section.settings.enable_rounded %}rounded{% endif %}"
+    style="color: {{ section.settings.text_color }}; background-color: {{ section.settings.background_color }};"
+  >
+    {{ section.settings.heading_text }}
+  </{{ heading_tag }}>
+</div>
+
+{% schema %}
+{
+  "name": "Heading Block",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading_text",
+      "label": "Heading text",
+      "default": "Shop the Collection"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "default": "h2",
+      "options": [
+        { "value": "h1", "label": "H1 (largest)" },
+        { "value": "h2", "label": "H2 (large)" },
+        { "value": "h3", "label": "H3 (medium)" },
+        { "value": "h4", "label": "H4 (small)" },
+        { "value": "h5", "label": "H5 (smaller)" },
+        { "value": "h6", "label": "H6 (smallest)" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Text alignment",
+      "default": "center",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "font_choice",
+      "label": "Font style",
+      "default": "heading",
+      "options": [
+        { "value": "heading", "label": "Theme heading font" },
+        { "value": "sans", "label": "Sans-serif" },
+        { "value": "serif", "label": "Serif" },
+        { "value": "mono", "label": "Monospace" }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_rounded",
+      "label": "Enable rounded background style",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Text background color",
+      "default": "#f67811"
+    },
+    {
+      "type": "color",
+      "id": "section_background_color",
+      "label": "Section background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "checkbox",
+      "id": "transparent_background",
+      "label": "Make section background transparent",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding (desktop)",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding (desktop)",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Top padding (mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Bottom padding (mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "horizontal_padding",
+      "label": "Horizontal padding (desktop)",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "horizontal_padding_mobile",
+      "label": "Horizontal padding (mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 8
+    }
+  ],
+  "presets": [
+    {
+      "name": "Heading Block"
+    }
+  ]
+}
+{% endschema %}

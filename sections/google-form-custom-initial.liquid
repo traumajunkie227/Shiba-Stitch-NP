@@ -1,0 +1,37 @@
+{% schema %}
+{
+  "name": "Custom Initial Form",
+  "tag": "section",
+  "class": "section",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Custom Initial Form"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="google-form-container">
+  <style>
+    .google-form-container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #EEEBE3;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .google-form-container iframe {
+      width: 100%;
+      height: 3500px; /* Increased height to prevent internal scroll */
+      border: none;
+    }
+  </style>
+
+  <iframe
+    src="https://docs.google.com/forms/d/e/1FAIpQLSeCdfDfnYwpWDXBkQgnJYcktuM2egDKtZ4D6Dv5xZjCBQnj_Q/viewform?embedded=true"
+    allowfullscreen>
+  </iframe>
+</div>

@@ -1,0 +1,10 @@
+{% if customer and customer.tags contains 'portrait-access' %}
+  {{ page.content }}
+{% else %}
+  <div style="padding: 2rem; text-align: center;">
+    <h2>🚫 Access Denied</h2>
+    <p>This page is for customers who have purchased a custom family portrait.</p>
+    <p>If you’ve already ordered, please log in using the email you used at checkout.</p>
+    <a href="/account/login" style="margin-top: 1rem; display: inline-block;">Login</a>
+  </div>
+{% endif %}

@@ -1,0 +1,44 @@
+<div style="padding:8px;background:#F00;color:#FFF;text-align:center;">
+  🚨 ORDER TEMPLATE LOADED for ID “{{ order_id }}” 🚨
+</div>
+
+
+<section {{ section.settings | section_tag }}>
+  {% if customer %}
+    {% assign order = customer.orders | where: "order_number", order_id | first %}
+    {% if order %}
+      <div class="order-detail">
+        <h1>Order {{ order.name }}</h1>
+        <p>Placed on {{ order.created_at | date: "%B %-d, %Y" }}</p>
+        <p>Status: {{ order.fulfillment_status | capitalize }}</p>
+        <p>Total: {{ order.total_price | money }}</p>
+        <table>
+          <thead>
+            <tr><th>Item</th><th>Qty</th><th>Price</th></tr>
+          </thead>
+          <tbody>
+            {% for line in order.line_items %}
+              <tr>
+                <td>{{ line.title }}</td>
+                <td>{{ line.quantity }}</td>
+                <td>{{ line.price | money }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <p>Sorry, we couldn’t find that order.</p>
+    {% endif %}
+  {% else %}
+    <p>Please <a href="/account/login">log in</a> to view this order.</p>
+  {% endif %}
+
+  {% schema %}
+  {
+    "name": "Order Detail",
+    "settings": [],
+    "presets": [{"name": "Order Detail"}]
+  }
+  {% endschema %}
+</section>

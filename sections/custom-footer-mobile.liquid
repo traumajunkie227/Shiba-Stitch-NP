@@ -1,0 +1,303 @@
+{% comment %} theme-check-disable UndefinedObject {% endcomment %}
+
+{%- style -%}
+/*–– Always hide desktop-bottom on mobile ––*/
+.custom-footer-desktop-bottom { display: none !important; }
+
+/*–– MOBILE STYLES ––*/
+@media (max-width: 767px) {
+  /* keep existing mobile bottom bar, hide desktop one */
+  .custom-footer-mobile .custom-footer-bottom { display: block; }
+}
+
+/*–– DESKTOP STYLES ––*/
+@media (min-width: 768px) {
+  /* hide the old mobile bottom bar */
+  .custom-footer-mobile .custom-footer-bottom { display: none !important; }
+
+  /* turn the entire footer into a 4-col grid */
+  .custom-footer-mobile {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    column-gap: {{ section.settings.desktop_column_gap }}px;
+    padding: {{ section.settings.desktop_padding_vertical }}px
+             {{ section.settings.desktop_padding_horizontal }}px;
+    background-color: #FEBD59;
+    border-radius: 20px;
+    box-sizing: border-box;
+    margin: 0 auto;
+  }
+
+  /* place each block into its own column */
+  .custom-footer-mobile .subscribe           { grid-column: 1; }
+  .custom-footer-mobile .footer-column:nth-child(1) { grid-column: 2; align-self: start; }
+  .custom-footer-mobile .footer-column:nth-child(2) { grid-column: 3; align-self: start; }
+
+  /* the graphic + social lives in column 4 */
+  .custom-footer-mobile .footer-image,
+  .custom-footer-mobile .footer-logo-left,
+  .custom-footer-mobile .social-heading,
+  .custom-footer-mobile .social-icons       { grid-column: 4; }
+
+  /* desktop-sized social & logo */
+  .custom-footer-mobile .social-icons a img {
+    width: {{ section.settings.desktop_social_icon_size }}px !important;
+    height: {{ section.settings.desktop_social_icon_size }}px !important;
+  }
+  .custom-footer-mobile .footer-logo-left img {
+    width: {{ section.settings.desktop_logo_image_size }}px !important;
+    height: auto !important;
+  }
+}
+
+/*–– COMMON (mobile + desktop) styles ––*/
+.custom-footer-mobile {
+  background-color: #FEBD59;
+  border-radius: 20px;
+  padding: {{ section.settings.padding_top }}px 16px {{ section.settings.padding_bottom }}px 16px;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+
+.custom-footer-mobile .subscribe {
+  text-align: center;
+  margin-bottom: 16px;
+}
+.custom-footer-mobile .subscribe h2 {
+  margin-bottom: 8px;
+  font-family: {{ section.settings.heading_font.family | json }}, {{ section.settings.heading_font.fallback_families }} !important;
+  font-size: {{ section.settings.heading_font_size }}px !important;
+  color: {{ section.settings.heading_color }};
+}
+.custom-footer-mobile .subscribe p {
+  margin-bottom: 12px;
+  font-family: {{ section.settings.body_font.family | json }}, {{ section.settings.body_font.fallback_families }} !important;
+  font-size: {{ section.settings.body_font_size }}px !important;
+  color: {{ section.settings.body_color }};
+}
+.custom-footer-mobile .subscribe input[type="email"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #000;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  box-sizing: border-box;
+}
+.custom-footer-mobile .subscribe button {
+  padding: 12px 24px;
+  background-color: #2e3ebd;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.custom-footer-mobile .footer-columns {
+  display: flex!important;
+  flex-wrap: nowrap;
+  gap: {{ section.settings.column_gap }}px;
+  margin: {{ section.settings.columns_margin_top }}px 0 16px;
+}
+.custom-footer-mobile .footer-column {
+  flex: 1;
+}
+.custom-footer-mobile .footer-column:first-child {
+  margin-left: {{ section.settings.shop_column_left_spacing }}px;
+}
+
+.custom-footer-mobile .footer-column h3 {
+  margin-bottom: 8px;
+  font-family: {{ section.settings.heading_font.family | json }}, {{ section.settings.heading_font.fallback_families }} !important;
+  font-size: {{ section.settings.heading_font_size }}px !important;
+  color: {{ section.settings.heading_color }};
+}
+.custom-footer-mobile .footer-column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 12px;
+}
+.custom-footer-mobile .footer-column li {
+  margin-bottom: 4px;
+  font-family: {{ section.settings.body_font.family | json }}, {{ section.settings.body_font.fallback_families }} !important;
+  font-size: {{ section.settings.body_font_size }}px !important;
+  color: {{ section.settings.body_color }};
+}
+.custom-footer-mobile .footer-column li a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.custom-footer-mobile .footer-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 12px;
+}
+.custom-footer-mobile .footer-logo-left img {
+  display: block;
+  width: {{ section.settings.logo_image_size }}px;
+  height: auto;
+  margin: 12px auto 0;
+  margin-left: {{ section.settings.logo_horizontal_offset }}px;
+}
+
+.custom-footer-mobile .social-heading {
+  margin: 12px 0 8px;
+  font-family: {{ section.settings.heading_font.family | json }}, {{ section.settings.heading_font.fallback_families }} !important;
+  font-size: {{ section.settings.heading_font_size }}px !important;
+  color: {{ section.settings.heading_color }};
+}
+.custom-footer-mobile .social-icons {
+  display: flex;
+  gap: {{ section.settings.social_icon_gap }}px;
+  margin-bottom: 0;
+}
+.custom-footer-mobile .social-icons a img {
+  display: inline-block;
+  width: {{ section.settings.social_icon_size }}px;
+  height: {{ section.settings.social_icon_size }}px;
+}
+
+/*–– MOBILE BOTTOM BAR ––*/
+.custom-footer-mobile .custom-footer-bottom {
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  padding: 8px 0;
+  font-family: {{ section.settings.body_font.family | json }}, {{ section.settings.body_font.fallback_families }} !important;
+  font-size: {{ section.settings.body_font_size }}px !important;
+}
+.custom-footer-mobile .custom-footer-bottom a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/*–– DESKTOP-ONLY BOTTOM BAR ––*/
+@media (min-width: 768px) {
+  .custom-footer-desktop-bottom {
+    background-color: #000;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    font-size: 0.85rem;
+    font-family: {{ section.settings.body_font.family | json }}, {{ section.settings.body_font.fallback_families }};
+    margin-top: 32px;
+  }
+  .custom-footer-desktop-bottom a { color: #fff; text-decoration: underline; }
+  .custom-footer-desktop-bottom .list-payment {
+    display: flex; gap: 12px; list-style: none; margin: 0; padding: 0;
+  }
+  .custom-footer-desktop-bottom .payment-icon {
+    width: 38px; height: 26px;
+  }
+}
+{%- endstyle -%}
+
+<footer class="custom-footer-mobile">
+  <div class="subscribe">
+    <h2>Perk up your ears!</h2>
+    <p>New drops, restocks, and Shiba pics straight to your email.</p>
+    <input type="email" placeholder="Email" required>
+    <button type="submit">Follow</button>
+  </div>
+
+  <div class="footer-columns">
+    <div class="footer-column">
+      <h3>Shop</h3>
+      <ul>
+        <li><a href="{{ section.settings.shop_link_1_url }}">{{ section.settings.shop_link_1_text }}</a></li>
+        <li><a href="{{ section.settings.shop_link_2_url }}">{{ section.settings.shop_link_2_text }}</a></li>
+      </ul>
+      {% if section.settings.footer_graphic %}
+        <div class="footer-image">
+          <img src="{{ section.settings.footer_graphic | img_url: '300x' }}" alt="Footer graphic">
+        </div>
+      {% endif %}
+      <div class="footer-logo-left">
+        <img src="https://cdn.shopify.com/s/files/1/0915/3285/3568/files/SS_SQ_logo_FINAL_-_0501_25MG.png?v=1746072567"
+             alt="Shiba Stitch logo">
+      </div>
+    </div>
+
+    <div class="footer-column">
+      <h3>Help</h3>
+      <ul>
+        <li><a href="{{ section.settings.help_link_1_url }}">{{ section.settings.help_link_1_text }}</a></li>
+        <li><a href="{{ section.settings.help_link_2_url }}">{{ section.settings.help_link_2_text }}</a></li>
+        <li><a href="{{ section.settings.help_link_3_url }}">{{ section.settings.help_link_3_text }}</a></li>
+      </ul>
+      <h4 class="social-heading">Follow us</h4>
+      <div class="social-icons">
+        <a href="https://www.instagram.com/shibastitchnp/">
+          <img src="https://cdn.shopify.com/s/files/1/0915/3285/3568/files/instagram_icon_rounded_refined.svg?v=1745642637" alt="Instagram">
+        </a>
+        <a href="https://www.facebook.com/shibastitchnp/">
+          <img src="https://cdn.shopify.com/s/files/1/0915/3285/3568/files/facebook_icon_rounded_refined.svg?v=1745642637" alt="Facebook">
+        </a>
+        <a href="https://www.tiktok.com/@sophsett">
+          <img src="https://cdn.shopify.com/s/files/1/0915/3285/3568/files/tiktok_icon_rounded_refined.svg?v=1745642637" alt="TikTok">
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- mobile bottom bar -->
+  <div class="custom-footer-bottom">
+    <small>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }} · <a href="/policies/privacy-policy">Privacy policy</a></small>
+  </div>
+
+  <!-- desktop bottom bar -->
+  <div class="custom-footer-desktop-bottom">
+    <small>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}</small>
+    <ul class="list-payment" role="list">
+      {% for type in shop.enabled_payment_types %}
+        <li class="payment-icon">{{ type | payment_type_svg_tag: class: 'icon icon–full-color' }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Custom Footer Mobile",
+  "settings": [
+    { "type": "range", "id": "desktop_padding_horizontal", "label": "Desktop horizontal padding (px)", "min": 0, "max": 100, "step": 1, "unit": "px", "default": 24 },
+    { "type": "range", "id": "desktop_padding_vertical",   "label": "Desktop vertical padding (px)",   "min": 0, "max": 100, "step": 1, "unit": "px", "default": 24 },
+    { "type": "range", "id": "desktop_column_gap",         "label": "Desktop gap between columns (px)","min": 0, "max": 100, "step": 1, "unit": "px", "default": 20 },
+    { "type": "range", "id": "desktop_social_icon_size",   "label": "Desktop social icon size (px)",   "min": 16,"max":100,"step":1,"unit":"px","default":28},
+    { "type": "range", "id": "desktop_logo_image_size",    "label": "Desktop Shiba logo size (px)",    "min": 50,"max":300,"step":5,"unit":"px","default":120},
+
+    { "type": "range", "id": "padding_top",                "label": "Top padding (px)",               "min": 0, "max": 100, "step": 1, "unit": "px", "default": 16 },
+    { "type": "range", "id": "padding_bottom",             "label": "Bottom padding (px)",            "min": 0, "max": 100, "step": 1, "unit": "px", "default": 16 },
+    { "type": "range", "id": "column_gap",                 "label": "Column spacing (px)",            "min": 0, "max": 50,  "step": 1, "unit": "px", "default": 16 },
+    { "type": "range", "id": "columns_margin_top",         "label": "Space above columns (px)",      "min": -50,"max": 50,  "step": 1, "unit": "px", "default": 16 },
+    { "type": "range", "id": "shop_column_left_spacing",   "label": "Shop column left spacing (px)",  "min": 0, "max": 50,  "step": 1, "unit": "px", "default": 0 },
+    { "type": "range", "id": "logo_horizontal_offset",     "label": "Logo horizontal offset (px)",    "min": -50,"max": 50,  "step": 1, "unit": "px", "default": 0 },
+    { "type": "image_picker","id": "footer_graphic",       "label": "Footer graphic" },
+    { "type": "range","id": "logo_image_size","label":"Shiba Stitch logo size (px)","min":50,"max":300,"step":5,"unit":"px","default":120},
+    { "type": "font","id":"heading_font","label":"Heading font"},
+    { "type": "range","id":"heading_font_size","label":"Heading font size (px)","min":12,"max":48,"step":1,"unit":"px","default":24},
+    { "type": "color","id":"heading_color","label":"Heading color","default":"#000000"},
+    { "type": "font","id":"body_font","label":"Body font"},
+    { "type": "range","id":"body_font_size","label":"Body font size (px)","min":12,"max":24,"step":1,"unit":"px","default":16},
+    { "type": "color","id":"body_color","label":"Body color","default":"#000000"},
+    { "type": "range","id":"social_icon_size","label":"Social icon size (px)","min":16,"max":100,"step":1,"unit":"px","default":28},
+    { "type": "range","id":"social_icon_gap","label":"Social icon spacing (px)","min":0,"max":50,"step":1,"unit":"px","default":16},
+    { "type": "text","id":"shop_link_1_text","label":"Shop link 1 text","default":"FAQ"},
+    { "type": "url","id":"shop_link_1_url","label":"Shop link 1 URL"},
+    { "type": "text","id":"shop_link_2_text","label":"Shop link 2 text","default":"Contact Us"},
+    { "type": "url","id":"shop_link_2_url","label":"Shop link 2 URL"},
+    { "type": "text","id":"help_link_1_text","label":"Help link 1 text","default":"FAQ"},
+    { "type": "url","id":"help_link_1_url","label":"Help link 1 URL"},
+    { "type": "text","id":"help_link_2_text","label":"Help link 2 text","default":"Contact Us"},
+    { "type": "url","id":"help_link_2_url","label":"Help link 2 URL"},
+    { "type": "text","id":"help_link_3_text","label":"Help link 3 text","default":"Privacy Policy"},
+    { "type": "url","id":"help_link_3_url","label":"Help link 3 URL"}
+  ],
+  "presets": [
+    { "name": "Custom Footer Mobile", "category": "Footer" }
+  ]
+}
+{% endschema %}

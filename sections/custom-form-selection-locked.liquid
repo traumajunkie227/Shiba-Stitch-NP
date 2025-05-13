@@ -1,0 +1,138 @@
+{% schema %}
+{
+  "name": "Custom Family Forms",
+  "tag": "section",
+  "class": "section custom-family-forms",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Custom Family Forms"
+    }
+  ]
+}
+{% endschema %}
+
+{% if customer %}
+  {% assign has_access = false %}
+
+  {% for order in customer.orders %}
+    {% for item in order.line_items %}
+      {% if item.title contains "Custom family portrait" %}
+        {% assign has_access = true %}
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
+
+  {% if has_access %}
+    <style>
+      .tab-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 40px 20px;
+        font-family: sans-serif;
+      }
+
+      .tab-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+      }
+
+      .tab-buttons button {
+        flex: 1 1 auto;
+        min-width: 150px;
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        background-color: #e0e0e0;
+        transition: background-color 0.3s ease;
+      }
+
+      .tab-buttons button.active {
+        background-color: #f67811;
+        color: white;
+      }
+
+      .tab-content {
+        display: none;
+      }
+
+      .tab-content.active {
+        display: block;
+      }
+
+      @media screen and (max-width: 768px) {
+        .tab-buttons {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .tab-buttons button {
+          width: 100%;
+        }
+      }
+    </style>
+
+    <div class="tab-container">
+      <h1 style="text-align: center;">Forms for Custom Family Portraits</h1>
+      <p style="text-align: center; margin-bottom: 20px;">Please select a form below.</p>
+
+      <div class="tab-buttons">
+        <button id="form-tab-1" class="active" onclick="switchTab(1)">🖌️ Initial Form</button>
+        <button id="form-tab-2" onclick="switchTab(2)">📩 Feedback Form</button>
+      </div>
+
+      <div id="form-content-1" class="tab-content active">
+        <iframe 
+          src="https://docs.google.com/forms/d/e/1FAIpQLScvKkxltWdvXRaL3sz0cQnl7USz-HmS6jSpMcSctvD_vF8qDQ/viewform?embedded=true" 
+          width="100%" 
+          height="1200" 
+          frameborder="0" 
+          marginheight="0" 
+          marginwidth="0" 
+          style="border: none; border-radius: 10px;">
+          Loading…
+        </iframe>
+      </div>
+
+      <div id="form-content-2" class="tab-content">
+        <iframe 
+          src="https://docs.google.com/forms/d/e/1FAIpQLSdrAXeb_fG-JA29yiPP0xNhEYQ5wAz7h2suhHj4-rDR38DT2g/viewform?embedded=true" 
+          width="100%" 
+          height="1000" 
+          frameborder="0" 
+          marginheight="0" 
+          marginwidth="0" 
+          style="border: none; border-radius: 10px;">
+          Loading…
+        </iframe>
+      </div>
+    </div>
+
+    <script>
+      function switchTab(tabNum) {
+        const tabButtons = document.querySelectorAll('.tab-buttons button');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        tabContents.forEach(content => content.classList.remove('active'));
+
+        document.getElementById(`form-tab-${tabNum}`).classList.add('active');
+        document.getElementById(`form-content-${tabNum}`).classList.add('active');
+      }
+    </script>
+
+  {% else %}
+    <div style="text-align: center; padding: 50px;">
+      <p>🚫 You must purchase a <strong>Custom Family Portrait</strong> to access this page.</p>
+      <a href="/products/custom-family" class="button">View Product</a>
+    </div>
+  {% endif %}
+{% else %}
+  <div style="text-align: center; padding: 50px;">
+    <p>Please <a href="/account/login">log in</a> to access this page.</p>
+  </div>
+{% endif %}
