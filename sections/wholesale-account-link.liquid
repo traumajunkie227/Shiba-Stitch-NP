@@ -1,0 +1,13 @@
+{% comment %}
+  Section: wholesale-account-link
+  Shows a “Wholesale Catalogue” button inside the account page,
+  but only for customers tagged ‘wholesale’.
+{% endcomment %}
+
+{% if customer and customer.tags contains 'wholesale' %}
+  <div class="account-wholesale-link" style="margin:1rem 0;">
+    <a href="/pages/wholesale-acct-tag" class="btn">
+      Wholesale Catalogue
+    </a>
+  </div>
+{% endif %}
