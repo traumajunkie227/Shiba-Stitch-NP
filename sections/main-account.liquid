@@ -212,6 +212,8 @@
     <a href="/checkout" class="checkout-link">{{ section.settings.label_checkout }}</a>
   </div><!-- /.account-nav -->
 
+  <p style="color:red;font-size:12px;">Tags: {{ customer.tags | json }}</p>
+
   {%- comment -%} Wholesale button – visible only to customers tagged “wholesale” {%- endcomment -%}
   {% if customer and customer.tags contains 'wholesale' %}
     <div style="display:flex;justify-content:center;margin-top:16px;">
