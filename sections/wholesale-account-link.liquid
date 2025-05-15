@@ -1,13 +1,88 @@
 {% comment %}
   Section: wholesale-account-link
-  Shows a “Wholesale Catalogue” button inside the account page,
-  but only for customers tagged ‘wholesale’.
+  Adds a centred “Wholesale Catalogue” button on the customer-account page,
+  visible only to customers tagged ‘wholesale’.
 {% endcomment %}
 
 {% if customer and customer.tags contains 'wholesale' %}
-  <div class="account-wholesale-link" style="margin:1rem 0;">
-    <a href="/pages/wholesale-acct-tag" class="btn">
-      Wholesale Catalogue
+  {%- assign link = section.settings.button_link | default: '/pages/wholesale-acct-tag' -%}
+
+  <div class="wholesale-link__wrapper" style="margin-top:{{ section.settings.margin_top }}px;">
+    <a
+      href="{{ link }}"
+      class="wholesale-link__btn"
+      style="
+        background:{{ section.settings.button_color }};
+        color:{{ section.settings.text_color }};
+      "
+    >
+      {{ section.settings.button_text | default: 'Wholesale Catalogue' }}
     </a>
   </div>
+
+  <style>
+    .wholesale-link__wrapper{
+      display:flex;
+      justify-content:center;
+    }
+    .wholesale-link__btn{
+      padding:0.75rem 1.75rem;
+      font-weight:600;
+      border-radius:8px;
+      text-decoration:none;
+      transition:opacity .2s ease-in-out;
+    }
+    .wholesale-link__btn:hover{ opacity:0.9; }
+  </style>
 {% endif %}
+
+{% schema %}
+{
+  "name": "Wholesale account link",
+  "tag": "section",
+  "class": "section-wholesale-account-link",
+  "enabled_on": {
+    "templates": ["customers/account"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Wholesale Catalogue"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Destination URL"
+      /* no “default” here—url settings can’t have one */
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button background colour",
+      "default": "#9ADCF9"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text colour",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Top margin (px)",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "default": 20
+    }
+  ],
+  "presets": [
+    {
+      "name": "Wholesale account link"
+    }
+  ]
+}
+{% endschema %}
