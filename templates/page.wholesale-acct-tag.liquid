@@ -1,0 +1,14 @@
+{% comment %}
+  Template: page.wholesale-acct-tag.liquid
+  Visible only to customers tagged 'wholesale'.
+{% endcomment %}
+
+{% if customer and customer.tags contains 'wholesale' %}
+  {% section 'wholesale-catalogue' %}
+{% else %}
+  {%- layout none -%}
+  <script>
+    /* Send non-wholesalers to login, then back here */
+    window.location = '/account/login?return_url={{ request.path | url_encode }}';
+  </script>
+{% endif %}
