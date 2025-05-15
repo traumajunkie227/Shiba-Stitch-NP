@@ -3748,3 +3748,7 @@ button[type="submit"][name="add"]:active {
     background-color: #be8c40 !important;  /* #be8c40 on hover or click */
 }
 
+/* Activate-account page background */
+.template-customers-activate_account {
+  background:#EEEBE3 !important;
+}
