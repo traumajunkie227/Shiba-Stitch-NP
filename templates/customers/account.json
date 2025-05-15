@@ -1,1 +1,51 @@
-{"sections":{"main":{"type":"main-account","custom_css":[],"settings":{"custom_link":"shopify:\/\/pages\/forms-for-custom-orders","wishlist_link":"","label_order_history":"Order History","label_manage_addresses":"Manage Addresses","label_custom_page":"Forms for Custom Orders","label_wishlist":"Wishlist (Inactive)","label_checkout":"Checkout","label_account_info":"Account Info (Inactive)","label_logout":"Log Out","label_cart":"Cart","button_color":"#ffbd59","button_text_color":"#000000","account_logo":"shopify:\/\/shop_images\/IMG_0985.png","spacing_above_orders":0,"heading1_size_desktop":36,"heading1_size_mobile":28,"heading2_size_desktop":30,"heading2_size_mobile":20}}},"order":["main"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-account",
+      "custom_css": [],
+      "settings": {
+        "custom_link": "shopify://pages/forms-for-custom-orders",
+        "wishlist_link": "",
+        "label_order_history": "Order History",
+        "label_manage_addresses": "Manage Addresses",
+        "label_custom_page": "Forms for Custom Orders",
+        "label_wishlist": "Wishlist (Inactive)",
+        "label_checkout": "Checkout",
+        "label_account_info": "Account Info (Inactive)",
+        "label_logout": "Log Out",
+        "label_cart": "Cart",
+        "button_color": "#ffbd59",
+        "button_text_color": "#000000",
+        "account_logo": "shopify://shop_images/IMG_0985.png",
+        "spacing_above_orders": 0,
+        "heading1_size_desktop": 36,
+        "heading1_size_mobile": 28,
+        "heading2_size_desktop": 30,
+        "heading2_size_mobile": 20
+      }
+    },
+
+    /* --- added wholesale button section ------------------- */
+    "wholesale_link": {
+      "type": "wholesale-account-link",
+      "settings": {
+        "margin_top": 20          /* top spacing under the orange buttons */
+      }
+    }
+    /* ------------------------------------------------------ */
+  },
+
+  "order": [
+    "main",
+    "wholesale_link"             /* renders right after the existing block */
+  ]
+}
