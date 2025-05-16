@@ -1,0 +1,21 @@
+{% comment %}
+  Template: product.restricted.liquid
+  Shows product only if customer is tagged 'wholesale' or product is tagged 'wholesale-duplicate'
+{% endcomment %}
+
+{% assign allow_access = false %}
+
+{% if product.tags contains 'wholesale-duplicate' %}
+  {% assign allow_access = true %}
+{% elsif customer and customer.tags contains 'wholesale' %}
+  {% assign allow_access = true %}
+{% endif %}
+
+{% if allow_access %}
+  {% section 'product-restricted-section' %}
+{% else %}
+  {% layout none %}
+  <script>
+    window.location.href = '/account/login?return_url={{ request.path | url_encode }}';
+  </script>
+{% endif %}
