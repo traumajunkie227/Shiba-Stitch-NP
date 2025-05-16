@@ -11,6 +11,7 @@
   "sections": {
     "title_sr_6Nc4gA": {
       "type": "title-SR",
+      "disabled": true,
       "name": "title-SR",
       "settings": {
         "heading_text": "Shipping & Returns",
@@ -70,7 +71,7 @@
       ],
       "name": "t:sections.collection-list.presets.name",
       "settings": {
-        "title": "Collections",
+        "title": "Current Wholesale Products",
         "heading_size": "h1",
         "image_ratio": "square",
         "columns_desktop": 3,
