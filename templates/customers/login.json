@@ -1,1 +1,126 @@
-{"sections":{"login_custom_blocks_h6Cdtm":{"type":"login-custom-blocks","custom_css":["\/* Keep this part the same *\/h2,p,a,label,span,li {line-height: 1 !important;}"," \/* Force remove spacing between password + forgot link + button *\/.customer-login .field,.customer-login .field + .field,.customer-login .field__input,.customer-login .field__link,.customer-login .field:has(.field__link) {margin-bottom: 0 !important; padding-bottom: 0 !important;}"," \/* Remove top margin from button *\/.customer-login .button {margin-top: 0 !important;}"],"name":"Login-custom-blocks.liquid","settings":{"enable_shop_login_button":false,"bold_links":true,"bold_button_text":true,"button_border_radius":4,"padding_top":12,"padding_bottom":20,"heading_font_size":32,"heading_margin_bottom":-10,"heading_font_size_mobile":28,"heading_margin_bottom_mobile":-50}},"custom_heading_title_2_YhPYUx":{"type":"custom-heading-title-2","name":"Custom Heading Title 2","settings":{"heading_text":"-or-","heading_size":"h4","heading_alignment":"center","enable_rounded":true,"text_color":"#000000","background_color":"#ffbd59","section_background_color":"#ffffff","wrapper_padding":30,"transparent_background":true,"inner_padding":7,"text_size":25,"text_size_mobile":18,"padding_top_desktop":5,"padding_bottom_desktop":5,"padding_top_mobile":5,"padding_bottom_mobile":5,"box_margin":0}},"174675676546bf03cb":{"type":"apps","blocks":{"hiko_social_login_hiko_block_Bw3cpi":{"type":"shopify:\/\/apps\/hiko-social-login\/blocks\/hiko-block\/3832d7e1-5bcd-4b72-91da-236b57feef8f","settings":{"login_type":"login","width":"60%","mobile":"640px","padding_top":"15px","padding_bottom":"5px"}},"shop_shop_login_button_app_block_LbdAbV":{"type":"shopify:\/\/apps\/shop\/blocks\/shop-login-button-app-block\/7cab7c4a-1dfc-4b7e-8e53-31f104f2fa4e","settings":{}}},"block_order":["hiko_social_login_hiko_block_Bw3cpi","shop_shop_login_button_app_block_LbdAbV"],"custom_css":[".shopify-app-block {position: relative; left: 50%; width: 100vw; margin: 0 -50vw -10px; \/* shifts the entire block upward *\/ padding: 10px 0 px 0; \/* increases internal space at bottom *\/ background: #eeebe3; box-sizing: border-box;}",".shopify-app-block .h_divider {display: none !important;}",".shopify-app-block .h_buttons > div span {font-weight: bold !important;}","shop-login-button {display: block !important; margin: 8px auto; width: 60%; max-width: 640px; border-radius: 10px; font: 600 16px\/1.4 sans-serif !important;}"],"settings":{"include_margins":true}},"page_break_pgj8dN":{"type":"page-break","name":"Page Break","settings":{"break_height":16,"spacing_above":0,"spacing_below":0,"background_color":"#eeebe3","transparent_background":false,"add_top_border":false,"add_bottom_border":false,"break_thickness":1,"border_color":"#000000"}}},"order":["login_custom_blocks_h6Cdtm","custom_heading_title_2_YhPYUx","174675676546bf03cb","page_break_pgj8dN"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "login_custom_blocks_h6Cdtm": {
+      "type": "login-custom-blocks",
+      "custom_css": [
+        "/* Keep this part the same */h2,p,a,label,span,li {line-height: 1 !important;}",
+        " /* Force remove spacing between password + forgot link + button */.customer-login .field,.customer-login .field + .field,.customer-login .field__input,.customer-login .field__link,.customer-login .field:has(.field__link) {margin-bottom: 0 !important; padding-bottom: 0 !important;}",
+        " /* Remove top margin from button */.customer-login .button {margin-top: 0 !important;}"
+      ],
+      "name": "Login-custom-blocks.liquid",
+      "settings": {
+        "enable_shop_login_button": false,
+        "bold_links": true,
+        "bold_button_text": true,
+        "button_border_radius": 4,
+        "padding_top": 12,
+        "padding_bottom": 20,
+        "heading_font_size": 32,
+        "heading_margin_bottom": -10,
+        "heading_font_size_mobile": 28,
+        "heading_margin_bottom_mobile": -50
+      }
+    },
+    "custom_heading_title_2_YhPYUx": {
+      "type": "custom-heading-title-2",
+      "name": "Custom Heading Title 2",
+      "settings": {
+        "heading_text": "-or-",
+        "heading_size": "h4",
+        "heading_alignment": "center",
+        "enable_rounded": true,
+        "text_color": "#000000",
+        "background_color": "#ffbd59",
+        "section_background_color": "#ffffff",
+        "wrapper_padding": 30,
+        "transparent_background": true,
+        "inner_padding": 7,
+        "text_size": 25,
+        "text_size_mobile": 18,
+        "padding_top_desktop": 5,
+        "padding_bottom_desktop": 5,
+        "padding_top_mobile": 5,
+        "padding_bottom_mobile": 5,
+        "box_margin": 0
+      }
+    },
+    "174675676546bf03cb": {
+      "type": "apps",
+      "blocks": {
+        "hiko_social_login_hiko_block_Bw3cpi": {
+          "type": "shopify://apps/hiko-social-login/blocks/hiko-block/3832d7e1-5bcd-4b72-91da-236b57feef8f",
+          "settings": {
+            "login_type": "login",
+            "width": "60%",
+            "mobile": "640px",
+            "padding_top": "15px",
+            "padding_bottom": "5px"
+          }
+        },
+        "shop_shop_login_button_app_block_LbdAbV": {
+          "type": "shopify://apps/shop/blocks/shop-login-button-app-block/7cab7c4a-1dfc-4b7e-8e53-31f104f2fa4e",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "hiko_social_login_hiko_block_Bw3cpi",
+        "shop_shop_login_button_app_block_LbdAbV"
+      ],
+      "custom_css": [
+        ".shopify-app-block {position: relative; left: 50%; width: 100vw; margin: 0 -50vw -10px; /* shifts the entire block upward */ padding: 10px 0 px 0; /* increases internal space at bottom */ background: #eeebe3; box-sizing: border-box;}",
+        ".shopify-app-block .h_divider {display: none !important;}",
+        ".shopify-app-block .h_buttons > div span {font-weight: bold !important;}",
+        "shop-login-button {display: block !important; margin: 8px auto; width: 60%; max-width: 640px; border-radius: 10px; font: 600 16px/1.4 sans-serif !important;}"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "page_break_pgj8dN": {
+      "type": "page-break",
+      "name": "Page Break",
+      "settings": {
+        "break_height": 16,
+        "spacing_above": 0,
+        "spacing_below": 0,
+        "background_color": "#eeebe3",
+        "transparent_background": false,
+        "add_top_border": false,
+        "add_bottom_border": false,
+        "break_thickness": 1,
+        "border_color": "#000000"
+      }
+    },
+    "wholesale_restricted_yqCRJF": {
+      "type": "wholesale-restricted",
+      "name": "Wholesale Restricted",
+      "settings": {
+        "collection_handle": "",
+        "heading": "Wholesale Catalog",
+        "columns": 3,
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none"
+      }
+    }
+  },
+  "order": [
+    "login_custom_blocks_h6Cdtm",
+    "custom_heading_title_2_YhPYUx",
+    "174675676546bf03cb",
+    "page_break_pgj8dN",
+    "wholesale_restricted_yqCRJF"
+  ]
+}
