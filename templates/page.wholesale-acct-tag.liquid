@@ -4,11 +4,11 @@
 {% endcomment %}
 
 {% if customer and customer.tags contains 'wholesale' %}
-  {% section 'wholesale-catalogue' %}
+  {% section 'wholesale-restricted' %}
 {% else %}
-  {%- layout none -%}
+  {% layout none %}
   <script>
     /* Send non-wholesalers to login, then back here */
-    window.location = '/account/login?return_url={{ request.path | url_encode }}';
+    window.location = '/account/login?return_url=' + encodeURIComponent(request.path);
   </script>
 {% endif %}
