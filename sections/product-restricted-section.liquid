@@ -1,0 +1,19 @@
+{% comment %}
+  Section: product-restricted-section.liquid
+  Basic product display (customize or duplicate main-product if needed)
+{% endcomment %}
+
+<section class="product-restricted">
+  <h1>{{ product.title }}</h1>
+  <div>
+    {{ product.description }}
+  </div>
+  {% if product.available %}
+    <form method="post" action="/cart/add">
+      <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+      <button type="submit">Add to cart</button>
+    </form>
+  {% else %}
+    <p>Sold out</p>
+  {% endif %}
+</section>
