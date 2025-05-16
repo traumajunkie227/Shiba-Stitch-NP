@@ -1,65 +1,105 @@
 {% comment %}
-  Reusable collection section for restricted access:
-  - Shows only products with tag 'wholesale-duplicate' OR customers tagged 'wholesale'
-  - Includes filters, sorting, responsive layout, native product cards
+  Displays up to two restricted collections manually selected via the theme editor.
+  Products show only if tagged 'wholesale-duplicate' or the customer is tagged 'wholesale'.
 {% endcomment %}
 
-<section class="collection-restricted" style="background-color: #EEEBE3; padding: 2rem 1rem;">
-  <h1 class="collection-title">{{ collection.title }}</h1>
-
-  {% if collection.description != blank %}
-    <div class="collection-description">{{ collection.description }}</div>
-  {% endif %}
+<section class="collection-restricted" style="background-color: #EEEBE3; padding: 1rem 1rem 2rem;">
 
   {% assign customer_wholesale = false %}
   {% if customer and customer.tags contains 'wholesale' %}
     {% assign customer_wholesale = true %}
   {% endif %}
 
-  {% assign visible_products = '' %}
-  {% assign filtered_products_array = '' %}
-  {% for product in collection.products %}
-    {% assign is_wholesale_product = false %}
-    {% if product.tags contains 'wholesale-duplicate' %}
-      {% assign is_wholesale_product = true %}
-    {% endif %}
-    {% if is_wholesale_product or customer_wholesale %}
-      {% capture visible_products %}{{ visible_products }}x{% endcapture %}
-      {% assign filtered_products_array = filtered_products_array | append: product.id | append: ',' %}
-    {% endif %}
-  {% endfor %}
+  {% assign collection_1 = section.settings.collection_1 %}
+  {% assign collection_2 = section.settings.collection_2 %}
 
-  {% if visible_products != '' %}
-    <div class="collection-tools page-width" style="margin: 1.5rem 0;">
-      <div class="facets facets-horizontal" style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
-        {% render 'facet-filters', results: collection %}
-        {% render 'sort-by', results: collection %}
-      </div>
-    </div>
+  {% if collection_1 != blank %}
+    {% assign collection = collections[collection_1] %}
+    {% if collection != blank %}
+      <h1 class="collection-title">{{ collection.title }}</h1>
 
-    <div class="product-grid">
+      {% if collection.description != blank %}
+        <div class="collection-description">{{ collection.description }}</div>
+      {% endif %}
+
+      {% assign visible_products = '' %}
       {% for product in collection.products %}
-        {% assign is_wholesale_product = false %}
-        {% if product.tags contains 'wholesale-duplicate' %}
-          {% assign is_wholesale_product = true %}
-        {% endif %}
-        {% if is_wholesale_product or customer_wholesale %}
-          {% render 'product-card', product: product %}
+        {% if product.tags contains 'wholesale-duplicate' or customer_wholesale %}
+          {% capture visible_products %}{{ visible_products }}x{% endcapture %}
         {% endif %}
       {% endfor %}
-    </div>
-  {% else %}
-    <p style="text-align: center; padding: 2rem;">
-      This collection is only available to approved wholesale customers.<br>
-      Please log in with a wholesale account or contact us for access.
-    </p>
+
+      {% if visible_products != '' %}
+        <div class="collection-tools page-width" style="margin: 1rem 0;">
+          <div class="facets facets-horizontal" style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+            {% render 'facet-filters', results: collection %}
+            {% render 'sort-by', results: collection %}
+          </div>
+        </div>
+
+        <div class="product-grid">
+          {% for product in collection.products %}
+            {% if product.tags contains 'wholesale-duplicate' or customer_wholesale %}
+              {% render 'product-card', product: product %}
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% else %}
+        <p style="text-align: center; padding: 2rem;">
+          This collection is only available to approved wholesale customers.
+        </p>
+      {% endif %}
+    {% endif %}
+  {% endif %}
+
+  {% if collection_2 != blank %}
+    {% assign collection = collections[collection_2] %}
+    {% if collection != blank %}
+      {% if section.settings.second_heading != blank %}
+        <h2 class="collection-second-heading">{{ section.settings.second_heading }}</h2>
+      {% else %}
+        <h2 class="collection-second-heading">{{ collection.title }}</h2>
+      {% endif %}
+
+      {% if collection.description != blank %}
+        <div class="collection-description">{{ collection.description }}</div>
+      {% endif %}
+
+      {% assign visible_products = '' %}
+      {% for product in collection.products %}
+        {% if product.tags contains 'wholesale-duplicate' or customer_wholesale %}
+          {% capture visible_products %}{{ visible_products }}x{% endcapture %}
+        {% endif %}
+      {% endfor %}
+
+      {% if visible_products != '' %}
+        <div class="collection-tools page-width" style="margin: 1rem 0;">
+          <div class="facets facets-horizontal" style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+            {% render 'facet-filters', results: collection %}
+            {% render 'sort-by', results: collection %}
+          </div>
+        </div>
+
+        <div class="product-grid">
+          {% for product in collection.products %}
+            {% if product.tags contains 'wholesale-duplicate' or customer_wholesale %}
+              {% render 'product-card', product: product %}
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% else %}
+        <p style="text-align: center; padding: 2rem;">
+          This collection is only available to approved wholesale customers.
+        </p>
+      {% endif %}
+    {% endif %}
   {% endif %}
 </section>
 
 <style>
-  /* Responsive mobile tweaks */
   @media screen and (max-width: 768px) {
-    .collection-restricted .collection-title {
+    .collection-restricted .collection-title,
+    .collection-restricted .collection-second-heading {
       font-size: 1.75rem;
       text-align: center;
     }
@@ -84,3 +124,32 @@
     }
   }
 </style>
+
+{% schema %}
+{
+  "name": "Restricted Collection",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection_1",
+      "label": "Primary Collection"
+    },
+    {
+      "type": "collection",
+      "id": "collection_2",
+      "label": "Optional Second Collection"
+    },
+    {
+      "type": "text",
+      "id": "second_heading",
+      "label": "Heading for Second Collection",
+      "default": "More Products"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Restricted Collection"
+    }
+  ]
+}
+{% endschema %}
