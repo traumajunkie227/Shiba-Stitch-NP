@@ -1,37 +1,86 @@
 {% comment %}
-  Section: collection-restricted-section.liquid
-  Filters products based on customer/product tag visibility
+  Reusable collection section for restricted access:
+  - Shows only products with tag 'wholesale-duplicate' OR customers tagged 'wholesale'
+  - Includes filters, sorting, responsive layout, native product cards
 {% endcomment %}
 
-<section class="collection-restricted">
-  <h1>{{ collection.title }}</h1>
+<section class="collection-restricted" style="background-color: #EEEBE3; padding: 2rem 1rem;">
+  <h1 class="collection-title">{{ collection.title }}</h1>
+
   {% if collection.description != blank %}
     <div class="collection-description">{{ collection.description }}</div>
   {% endif %}
 
-  <div class="product-grid">
-    {% assign customer_wholesale = false %}
-    {% if customer and customer.tags contains 'wholesale' %}
-      {% assign customer_wholesale = true %}
+  {% assign customer_wholesale = false %}
+  {% if customer and customer.tags contains 'wholesale' %}
+    {% assign customer_wholesale = true %}
+  {% endif %}
+
+  {% assign visible_products = '' %}
+  {% assign filtered_products_array = '' %}
+  {% for product in collection.products %}
+    {% assign is_wholesale_product = false %}
+    {% if product.tags contains 'wholesale-duplicate' %}
+      {% assign is_wholesale_product = true %}
     {% endif %}
+    {% if is_wholesale_product or customer_wholesale %}
+      {% capture visible_products %}{{ visible_products }}x{% endcapture %}
+      {% assign filtered_products_array = filtered_products_array | append: product.id | append: ',' %}
+    {% endif %}
+  {% endfor %}
 
-    {% for product in collection.products %}
-      {% assign is_wholesale_product = false %}
-      {% if product.tags contains 'wholesale-duplicate' %}
-        {% assign is_wholesale_product = true %}
-      {% endif %}
+  {% if visible_products != '' %}
+    <div class="collection-tools page-width" style="margin: 1.5rem 0;">
+      <div class="facets facets-horizontal" style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+        {% render 'facet-filters', results: collection %}
+        {% render 'sort-by', results: collection %}
+      </div>
+    </div>
 
-      {% if is_wholesale_product or customer_wholesale %}
-        <div class="product-card">
-          <a href="{{ product.url }}">
-            <h2>{{ product.title }}</h2>
-            {% if product.featured_image %}
-              <img src="{{ product.featured_image | image_url: width: 400 }}" alt="{{ product.title }}">
-            {% endif %}
-            <p>{{ product.price | money }}</p>
-          </a>
-        </div>
-      {% endif %}
-    {% endfor %}
-  </div>
+    <div class="product-grid">
+      {% for product in collection.products %}
+        {% assign is_wholesale_product = false %}
+        {% if product.tags contains 'wholesale-duplicate' %}
+          {% assign is_wholesale_product = true %}
+        {% endif %}
+        {% if is_wholesale_product or customer_wholesale %}
+          {% render 'product-card', product: product %}
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% else %}
+    <p style="text-align: center; padding: 2rem;">
+      This collection is only available to approved wholesale customers.<br>
+      Please log in with a wholesale account or contact us for access.
+    </p>
+  {% endif %}
 </section>
+
+<style>
+  /* Responsive mobile tweaks */
+  @media screen and (max-width: 768px) {
+    .collection-restricted .collection-title {
+      font-size: 1.75rem;
+      text-align: center;
+    }
+
+    .collection-restricted .facets-horizontal {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .collection-restricted .product-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+
+  @media screen and (min-width: 769px) {
+    .collection-restricted .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+  }
+</style>
