@@ -1,126 +1,118 @@
 {% comment %}
-  Displays up to two restricted collections manually selected via the theme editor.
-  Products show only if tagged 'wholesale-duplicate' or the customer is tagged 'wholesale'.
+  Restricted Collection Section:
+  - Supports up to 3 collections
+  - Custom titles per collection (optional)
+  - Layout selector (grid or list)
+  - Adjustable padding (desktop & mobile)
+  - Spacing between collection blocks
+  - Wholesale access enforcement
 {% endcomment %}
 
-<section class="collection-restricted" style="background-color: #EEEBE3; padding: 1rem 1rem 2rem;">
+{% assign customer_wholesale = false %}
+{% if customer and customer.tags contains 'wholesale' %}
+  {% assign customer_wholesale = true %}
+{% endif %}
 
-  {% assign customer_wholesale = false %}
-  {% if customer and customer.tags contains 'wholesale' %}
-    {% assign customer_wholesale = true %}
-  {% endif %}
+<section class="collection-restricted"
+  style="
+    background-color: #EEEBE3;
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    padding-left: {{ section.settings.padding_left }}px;
+    padding-right: {{ section.settings.padding_right }}px;
+  "
+>
 
-  {% assign collection_1 = section.settings.collection_1 %}
-  {% assign collection_2 = section.settings.collection_2 %}
+  {% for i in (1..3) %}
+    {% assign collection_id = 'collection_' | append: i %}
+    {% assign collection = collections[section.settings[collection_id]] %}
 
-  {% if collection_1 != blank %}
-    {% assign collection = collections[collection_1] %}
     {% if collection != blank %}
-      <h1 class="collection-title">{{ collection.title }}</h1>
-
-      {% if collection.description != blank %}
-        <div class="collection-description">{{ collection.description }}</div>
+      {% if forloop.index > 1 %}
+        <div style="margin-top: {{ section.settings.spacing_between }}px;"></div>
       {% endif %}
 
-      {% assign visible_products = '' %}
-      {% for product in collection.products %}
-        {% if product.tags contains 'wholesale-duplicate' or customer_wholesale %}
-          {% capture visible_products %}{{ visible_products }}x{% endcapture %}
+      <div class="restricted-collection-block">
+        {% assign title_id = 'custom_title_' | append: i %}
+        {% assign layout_id = 'layout_' | append: i %}
+        {% assign custom_title = section.settings[title_id] %}
+        {% assign layout_style = section.settings[layout_id] | default: 'grid' %}
+
+        {% if custom_title != blank %}
+          <h2 class="collection-title">{{ custom_title }}</h2>
+        {% else %}
+          <h2 class="collection-title">{{ collection.title }}</h2>
         {% endif %}
-      {% endfor %}
 
-      {% if visible_products != '' %}
-        <div class="collection-tools page-width" style="margin: 1rem 0;">
-          <div class="facets facets-horizontal" style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
-            {% render 'facet-filters', results: collection %}
-            {% render 'sort-by', results: collection %}
-          </div>
-        </div>
-
-        <div class="product-grid">
-          {% for product in collection.products %}
-            {% if product.tags contains 'wholesale-duplicate' or customer_wholesale %}
-              {% render 'product-card', product: product %}
-            {% endif %}
-          {% endfor %}
-        </div>
-      {% else %}
-        <p style="text-align: center; padding: 2rem;">
-          This collection is only available to approved wholesale customers.
-        </p>
-      {% endif %}
-    {% endif %}
-  {% endif %}
-
-  {% if collection_2 != blank %}
-    {% assign collection = collections[collection_2] %}
-    {% if collection != blank %}
-      {% if section.settings.second_heading != blank %}
-        <h2 class="collection-second-heading">{{ section.settings.second_heading }}</h2>
-      {% else %}
-        <h2 class="collection-second-heading">{{ collection.title }}</h2>
-      {% endif %}
-
-      {% if collection.description != blank %}
-        <div class="collection-description">{{ collection.description }}</div>
-      {% endif %}
-
-      {% assign visible_products = '' %}
-      {% for product in collection.products %}
-        {% if product.tags contains 'wholesale-duplicate' or customer_wholesale %}
-          {% capture visible_products %}{{ visible_products }}x{% endcapture %}
+        {% if collection.description != blank %}
+          <div class="collection-description">{{ collection.description }}</div>
         {% endif %}
-      {% endfor %}
 
-      {% if visible_products != '' %}
-        <div class="collection-tools page-width" style="margin: 1rem 0;">
-          <div class="facets facets-horizontal" style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
-            {% render 'facet-filters', results: collection %}
-            {% render 'sort-by', results: collection %}
+        {% assign visible_products = '' %}
+        {% for product in collection.products %}
+          {% if product.tags contains 'wholesale-duplicate' or customer_wholesale %}
+            {% capture visible_products %}{{ visible_products }}x{% endcapture %}
+          {% endif %}
+        {% endfor %}
+
+        {% if visible_products != '' %}
+          <div class="collection-tools page-width" style="margin: 1rem 0;">
+            <div class="facets facets-horizontal" style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+              {% render 'facet-filters', results: collection %}
+              {% render 'sort-by', results: collection %}
+            </div>
           </div>
-        </div>
 
-        <div class="product-grid">
-          {% for product in collection.products %}
-            {% if product.tags contains 'wholesale-duplicate' or customer_wholesale %}
-              {% render 'product-card', product: product %}
-            {% endif %}
-          {% endfor %}
-        </div>
-      {% else %}
-        <p style="text-align: center; padding: 2rem;">
-          This collection is only available to approved wholesale customers.
-        </p>
-      {% endif %}
+          <div class="product-display product-{{ layout_style }}">
+            {% for product in collection.products %}
+              {% if product.tags contains 'wholesale-duplicate' or customer_wholesale %}
+                {% render 'product-card', product: product %}
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% else %}
+          <p style="text-align: center; padding: 2rem;">
+            This collection is only available to approved wholesale customers.
+          </p>
+        {% endif %}
+      </div>
     {% endif %}
-  {% endif %}
+  {% endfor %}
 </section>
 
 <style>
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+
+  .product-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
   @media screen and (max-width: 768px) {
-    .collection-restricted .collection-title,
-    .collection-restricted .collection-second-heading {
+    .collection-restricted {
+      padding-top: {{ section.settings.padding_top_mobile | default: section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom_mobile | default: section.settings.padding_bottom }}px;
+      padding-left: {{ section.settings.padding_left_mobile | default: section.settings.padding_left }}px;
+      padding-right: {{ section.settings.padding_right_mobile | default: section.settings.padding_right }}px;
+    }
+
+    .collection-title {
       font-size: 1.75rem;
       text-align: center;
     }
 
-    .collection-restricted .facets-horizontal {
+    .facets-horizontal {
       flex-direction: column;
       align-items: stretch;
     }
 
-    .collection-restricted .product-grid {
-      display: grid;
+    .product-grid {
       grid-template-columns: 1fr;
-      gap: 1.5rem;
-    }
-  }
-
-  @media screen and (min-width: 769px) {
-    .collection-restricted .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 2rem;
     }
   }
 </style>
@@ -135,15 +127,143 @@
       "label": "Primary Collection"
     },
     {
+      "type": "text",
+      "id": "custom_title_1",
+      "label": "Custom Title for Collection 1",
+      "default": "Collection 1"
+    },
+    {
+      "type": "select",
+      "id": "layout_1",
+      "label": "Layout for Collection 1",
+      "options": [
+        { "value": "grid", "label": "Grid" },
+        { "value": "list", "label": "List" }
+      ],
+      "default": "grid"
+    },
+    {
       "type": "collection",
       "id": "collection_2",
-      "label": "Optional Second Collection"
+      "label": "Second Collection"
     },
     {
       "type": "text",
-      "id": "second_heading",
-      "label": "Heading for Second Collection",
-      "default": "More Products"
+      "id": "custom_title_2",
+      "label": "Custom Title for Collection 2",
+      "default": "Collection 2"
+    },
+    {
+      "type": "select",
+      "id": "layout_2",
+      "label": "Layout for Collection 2",
+      "options": [
+        { "value": "grid", "label": "Grid" },
+        { "value": "list", "label": "List" }
+      ],
+      "default": "grid"
+    },
+    {
+      "type": "collection",
+      "id": "collection_3",
+      "label": "Third Collection"
+    },
+    {
+      "type": "text",
+      "id": "custom_title_3",
+      "label": "Custom Title for Collection 3",
+      "default": "Collection 3"
+    },
+    {
+      "type": "select",
+      "id": "layout_3",
+      "label": "Layout for Collection 3",
+      "options": [
+        { "value": "grid", "label": "Grid" },
+        { "value": "list", "label": "List" }
+      ],
+      "default": "grid"
+    },
+    {
+      "type": "range",
+      "id": "spacing_between",
+      "label": "Spacing Between Collections (px)",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top Padding (px)",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom Padding (px)",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_left",
+      "label": "Left Padding (px)",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding_right",
+      "label": "Right Padding (px)",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Top Padding (Mobile px)",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Bottom Padding (Mobile px)",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_left_mobile",
+      "label": "Left Padding (Mobile px)",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "padding_right_mobile",
+      "label": "Right Padding (Mobile px)",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 12
     }
   ],
   "presets": [
