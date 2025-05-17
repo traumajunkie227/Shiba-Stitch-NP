@@ -144,9 +144,8 @@
       "collection-restricted-section": {
         "type": "collection-restricted-section",
         "settings": {
-          "collection_1": "current-wholesale-collection",
-          "collection_2": "",
-          "second_heading": "More Products"
+          "collection_1": "active-designs-wholesale",
+          "collection_2": ""
         }
       }
     },

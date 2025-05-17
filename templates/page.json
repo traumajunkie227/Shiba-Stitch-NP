@@ -62,7 +62,7 @@
         "featured_collection_nzibdw": {
           "type": "featured_collection",
           "settings": {
-            "collection": "current-wholesale-collection"
+            "collection": "active-designs-wholesale"
           }
         }
       },
