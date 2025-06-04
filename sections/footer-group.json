@@ -1,1 +1,102 @@
-{"name":"t:sections.footer.name","type":"footer","sections":{"page_break_cMxeWr":{"type":"page-break","name":"Page Break","settings":{"break_height":20,"spacing_above":0,"spacing_below":0,"background_color":"#f5f5f5","transparent_background":true,"add_top_border":false,"add_bottom_border":false,"break_thickness":4,"border_color":"#000000"}},"custom_footer_mobile_Gb9FwM":{"type":"custom-footer-mobile","custom_css":["@media (min-width: 480px) {.custom-footer-mobile {display: grid !important; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px 28px; padding: 18px 24px !important; } .custom-footer-mobile h1, .custom-footer-mobile h2, .custom-footer-mobile h3, .custom-footer-mobile h4 {margin: 0 0 6px !important; line-height: 1.15; } .custom-footer-mobile p, .custom-footer-mobile li {margin: 0 0 4px !important; line-height: 1.3; } .custom-footer-mobile form {display: flex; gap: 6px; } .custom-footer-mobile input[type=\"email\"] {flex: 1 1 auto; }}"],"name":"Custom Footer Mobile","settings":{"desktop_padding_horizontal":45,"desktop_padding_vertical":33,"desktop_column_gap":77,"desktop_social_icon_size":46,"desktop_logo_image_size":120,"padding_top":12,"padding_bottom":11,"column_gap":23,"columns_margin_top":-7,"shop_column_left_spacing":16,"logo_horizontal_offset":0,"logo_image_size":95,"heading_font_size":24,"heading_color":"#000000","body_font_size":16,"body_color":"#000000","social_icon_size":40,"social_icon_gap":0,"shop_link_1_text":"Products","shop_link_1_url":"shopify:\/\/collections\/all","shop_link_2_text":"Wholesale","shop_link_2_url":"shopify:\/\/pages\/wholesale","help_link_1_text":"FAQ","help_link_1_url":"shopify:\/\/pages\/faq","help_link_2_text":"Shipping & Returns","help_link_2_url":"shopify:\/\/pages\/shipping-returns","help_link_3_text":"Contact Us","help_link_3_url":"shopify:\/\/pages\/contact-us"}},"footer_6MhxN9":{"type":"footer","disabled":true,"name":"Custom Footer","settings":{"mobile_padding_horizontal":16,"mobile_padding_vertical":16,"mobile_column_gap":20,"mobile_row_gap":20,"mobile_block1_width":100,"mobile_block2_width":48,"mobile_block3_width":48,"mobile_block4_width":100,"mobile_offset1_x":0,"mobile_offset1_y":0,"mobile_offset2_x":0,"mobile_offset2_y":0,"mobile_offset3_x":0,"mobile_offset3_y":0,"mobile_offset4_x":0,"mobile_offset4_y":0,"mobile_line_height":1.4}},"payment_footer_desktop_dzEfM8":{"type":"payment-footer-desktop","name":"Desktop Payment Footer","settings":{}}},"order":["page_break_cMxeWr","custom_footer_mobile_Gb9FwM","footer_6MhxN9","payment_footer_desktop_dzEfM8"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.footer.name",
+  "type": "footer",
+  "sections": {
+    "page_break_cMxeWr": {
+      "type": "page-break",
+      "name": "Page Break",
+      "settings": {
+        "break_height": 20,
+        "spacing_above": 0,
+        "spacing_below": 0,
+        "background_color": "#f5f5f5",
+        "transparent_background": true,
+        "add_top_border": false,
+        "add_bottom_border": false,
+        "break_thickness": 4,
+        "border_color": "#000000"
+      }
+    },
+    "custom_footer_mobile_Gb9FwM": {
+      "type": "custom-footer-mobile",
+      "custom_css": [
+        "@media (min-width: 480px) {.custom-footer-mobile {display: grid !important; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px 28px; padding: 18px 24px !important; } .custom-footer-mobile h1, .custom-footer-mobile h2, .custom-footer-mobile h3, .custom-footer-mobile h4 {margin: 0 0 6px !important; line-height: 1.15; } .custom-footer-mobile p, .custom-footer-mobile li {margin: 0 0 4px !important; line-height: 1.3; } .custom-footer-mobile form {display: flex; gap: 6px; } .custom-footer-mobile input[type=\"email\"] {flex: 1 1 auto; }}"
+      ],
+      "name": "Custom Footer Mobile",
+      "settings": {
+        "desktop_padding_horizontal": 45,
+        "desktop_padding_vertical": 33,
+        "desktop_column_gap": 77,
+        "desktop_social_icon_size": 46,
+        "desktop_logo_image_size": 120,
+        "padding_top": 12,
+        "padding_bottom": 11,
+        "column_gap": 23,
+        "columns_margin_top": -7,
+        "shop_column_left_spacing": 16,
+        "logo_horizontal_offset": 0,
+        "logo_image_size": 95,
+        "heading_font_size": 24,
+        "heading_color": "#000000",
+        "body_font_size": 16,
+        "body_color": "#000000",
+        "social_icon_size": 40,
+        "social_icon_gap": 0,
+        "shop_link_1_text": "Products",
+        "shop_link_1_url": "shopify://collections/all",
+        "shop_link_2_text": "Wholesale",
+        "shop_link_2_url": "shopify://pages/wholesale-signup",
+        "help_link_1_text": "FAQ",
+        "help_link_1_url": "shopify://pages/faq",
+        "help_link_2_text": "Shipping & Returns",
+        "help_link_2_url": "shopify://pages/shipping-returns",
+        "help_link_3_text": "Contact Us",
+        "help_link_3_url": "shopify://pages/contact-us"
+      }
+    },
+    "footer_6MhxN9": {
+      "type": "footer",
+      "disabled": true,
+      "name": "Custom Footer",
+      "settings": {
+        "mobile_padding_horizontal": 16,
+        "mobile_padding_vertical": 16,
+        "mobile_column_gap": 20,
+        "mobile_row_gap": 20,
+        "mobile_block1_width": 100,
+        "mobile_block2_width": 48,
+        "mobile_block3_width": 48,
+        "mobile_block4_width": 100,
+        "mobile_offset1_x": 0,
+        "mobile_offset1_y": 0,
+        "mobile_offset2_x": 0,
+        "mobile_offset2_y": 0,
+        "mobile_offset3_x": 0,
+        "mobile_offset3_y": 0,
+        "mobile_offset4_x": 0,
+        "mobile_offset4_y": 0,
+        "mobile_line_height": 1.4
+      }
+    },
+    "payment_footer_desktop_dzEfM8": {
+      "type": "payment-footer-desktop",
+      "name": "Desktop Payment Footer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "page_break_cMxeWr",
+    "custom_footer_mobile_Gb9FwM",
+    "footer_6MhxN9",
+    "payment_footer_desktop_dzEfM8"
+  ]
+}
